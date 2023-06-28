@@ -1,0 +1,33 @@
+(function (modules) {
+  function require(id) {
+    // debugger;
+    const module = {
+      exports: {},
+    };
+
+    // 通过id查找对应的函数体和对应关系
+    const [fn, mapping] = modules[id];
+
+    // 将代码中的传入require函数的路径转换成id，再传入require函数查找对应的函数体和对应关系
+    function localRequire(path) {
+      const id = mapping[path];
+      return require(id);
+    }
+
+    fn(localRequire, module, module.exports);
+
+    return module.exports;
+  }
+
+  require(0);
+})({
+  <% data.forEach(item => { %>
+    <%- item.id %> : [
+      function (require, module, exports) {
+        <%- item.commonJsCode %>
+      },
+      <%- JSON.stringify(item.mapping) %>
+      
+    ],
+  <% }) %>
+});

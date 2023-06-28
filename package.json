@@ -1,0 +1,22 @@
+{
+  "name": "i-webpack",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "node ./src/index.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/parser": "^7.22.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "@babel/traverse": "^7.22.5",
+    "@types/babel__core": "^7",
+    "@types/babel__preset-env": "^7",
+    "@types/babel__traverse": "^7",
+    "@types/ejs": "^3",
+    "@types/eslint": "^8",
+    "ejs": "^3.1.9",
+    "eslint": "^8.43.0"
+  }
+}
