@@ -1,6 +1,56 @@
 # i-webpack
 
-实现webpack的核心打包流程
+实现最基本的webpack功能
+
+[演示地址](https://sjx1995.github.io/i-webpack/)
+
+## 实现的功能
+
+- [x] 打包
+- [x] 可配置
+- [x] Loader
+- [x] Plugin
+
+## 项目结构
+
+```text
+src
+├── config.js                # 配置文件
+├── example                  # 示例
+│   ├── bar.js
+│   ├── changeBundleName.js  # 自定义plugin
+│   ├── foo.js
+│   ├── json-loader.js       # 自定义loader
+│   ├── main.js              # 入口文件
+│   ├── sub-dir
+│   │   └── baz.js
+│   └── test.json            # 测试loader的json文件
+├── index.js                 # webpack核心逻辑
+└── template                 # ejs模板
+    └── index.ejs
+```
+
+### 示例
+
+在`./src/example/`文件夹下是一个简单的示例，其中`main.js`是入口文件
+
+模块间的引用关系:
+
+```text
+main.js
+├── foo.js
+│   └── baz.js
+└── bar.js
+```
+
+`./src/example/`还包含用于处理`test.json`的自定义loader`json-loader.js`
+
+## 用法
+
+```bash
+# 在./dist/目录下生成打包后的文件bundle.js
+yarn build
+```
 
 ## 打包核心流程
 
@@ -23,23 +73,3 @@
 `bundle.js`文件中有动态写入的模块代码、依赖关系等，也有静态的`require()`等方法，所以我们使用`ejs`模板引擎动态生成`bundle.js`文件
 
 有了依赖关系、模块代码，我们就可以将每个模块的代码放在函数中，将这些模块合并写入`bundle.js`
-
-## 示例
-
-在`./src/example/`文件夹下是一个简单的示例，其中`main.js`是入口文件
-
-模块间的引用关系:
-
-```text
-main.js
-├── foo.js
-│   └── baz.js
-└── bar.js
-```
-
-## 用法
-
-```bash
-# 在./dist/目录下生成打包后的文件bundle.js
-yarn build
-```
