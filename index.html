@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>webpack-core-path</title>
+    <style>
+      #main {
+        width: 80%;
+        max-width: 600px;
+        margin: 0 auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .title {
+        text-align: center;
+      }
+      h3,
+      p {
+        margin-left: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <div class="title">
+        <h1>webpack核心打包流程</h1>
+        <a href="https://github.com/sjx1995/i-webpack">View on Github</a>
+        <h3></h3>
+      </div>
+      <hr />
+      <h3>模块打包</h3>
+      <p>从 main.js 开始，搜索所有模块，打包到 output.js</p>
+      <p>打开控制台查看模块输出</p>
+      <h3>loader</h3>
+      <p>支持解析 JSON 文件，打开控制台查看输出</p>
+      <h3>plugin</h3>
+      <p>实现了一个emit钩子，在自资源生成完成后，输出到目录之前</p>
+      <p>在自定义插件 changeBundleName 中，修改最终产物名称为 bundle.js</p>
+    </div>
+
+    <script type="module" src="./dist/bundle.js"></script>
+  </body>
+</html>
