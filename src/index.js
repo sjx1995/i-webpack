@@ -6,6 +6,7 @@ import ejs from "ejs";
 import fs from "fs";
 import path from "path";
 import process from "process";
+import config from "./config.js";
 
 let id = 0; // 生成mapping使用的唯一id
 
@@ -45,9 +46,9 @@ const createAsset = (modulePath) => {
 };
 
 // 使用队列构建图
-const createGraph = () => {
+const createGraph = (entry) => {
   const target = []; // 构建出来的包含源码、id、mapping、路径等关系的数据都放在target
-  const queue = ["./main.js"]; // 维护一个队列，用于遍历所有的依赖
+  const queue = [entry]; // 维护一个队列，用于遍历所有的依赖
   const depsMap = new Map(); // 构建依赖相对路径和id的关系
 
   while (queue.length) {
@@ -87,7 +88,8 @@ const createGraph = () => {
 };
 
 const createBundle = () => {
-  let data = createGraph();
+  const { entry } = config;
+  let data = createGraph(path.resolve(process.cwd(), entry));
 
   // 读取模板并渲染
   const template = fs.readFileSync(
@@ -97,7 +99,10 @@ const createBundle = () => {
   const bundle = ejs.render(template, { data });
 
   // 写入bundle文件
-  fs.writeFileSync(path.resolve(process.cwd(), "./dist/bundle.js"), bundle, {
+  const {
+    output: { path: outputPath, filename },
+  } = config;
+  fs.writeFileSync(path.resolve(outputPath, filename), bundle, {
     encoding: "utf-8",
   });
 };
