@@ -39,7 +39,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/ejs", "npm:3.1.2"],\
             ["@types/eslint", "npm:8.40.2"],\
             ["ejs", "npm:3.1.9"],\
-            ["eslint", "npm:8.43.0"]\
+            ["eslint", "npm:8.43.0"],\
+            ["tapable", "npm:2.2.1"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -3343,7 +3344,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/ejs", "npm:3.1.2"],\
             ["@types/eslint", "npm:8.40.2"],\
             ["ejs", "npm:3.1.9"],\
-            ["eslint", "npm:8.43.0"]\
+            ["eslint", "npm:8.43.0"],\
+            ["tapable", "npm:2.2.1"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -3923,6 +3925,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/supports-preserve-symlinks-flag-npm-1.0.0-f17c4d0028-53b1e247e6.zip/node_modules/supports-preserve-symlinks-flag/",\
           "packageDependencies": [\
             ["supports-preserve-symlinks-flag", "npm:1.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["tapable", [\
+        ["npm:2.2.1", {\
+          "packageLocation": "./.yarn/cache/tapable-npm-2.2.1-8cf5ff3039-3b7a1b4d86.zip/node_modules/tapable/",\
+          "packageDependencies": [\
+            ["tapable", "npm:2.2.1"]\
           ],\
           "linkType": "HARD"\
         }]\

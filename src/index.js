@@ -6,6 +6,7 @@ import ejs from "ejs";
 import fs from "fs";
 import path from "path";
 import process from "process";
+import tapable, { SyncHook } from "tapable";
 import config from "./config.js";
 
 let id = 0; // 生成mapping使用的唯一id
@@ -99,7 +100,24 @@ const createGraph = (entry) => {
 };
 
 const createBundle = () => {
-  const { entry } = config;
+  const { entry, output, plugins } = config;
+
+  // 注册插件
+  class Hooks {
+    constructor() {
+      this.hooks = {
+        emit: new SyncHook(["ctx"]),
+      };
+    }
+  }
+  const customHook = new Hooks();
+  plugins &&
+    plugins.forEach((plugin) => {
+      customHook.hooks.emit.tap("emit-hook", (ctx) => {
+        plugin.apply(ctx);
+      });
+    });
+
   let data = createGraph(path.resolve(process.cwd(), entry));
 
   // 读取模板并渲染
@@ -109,11 +127,12 @@ const createBundle = () => {
   );
   const bundle = ejs.render(template, { data });
 
+  // 触发emit钩子
+  customHook.hooks.emit.call(output);
+
   // 写入bundle文件
-  const {
-    output: { path: outputPath, filename },
-  } = config;
-  fs.writeFileSync(path.resolve(outputPath, filename), bundle, {
+  const {} = config;
+  fs.writeFileSync(path.resolve(output.path, output.filename), bundle, {
     encoding: "utf-8",
   });
 };

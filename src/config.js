@@ -1,11 +1,12 @@
 import path from "path";
 import jsonLoader from "./example/json-loader.js";
+import ChangeBundleName from "./example/changeBundleName.js";
 
 export default {
   entry: "./src/example/main.js",
   output: {
     path: path.resolve(process.cwd(), "./dist"),
-    filename: "bundle.js",
+    filename: "output.js",
   },
   module: {
     rules: [
@@ -15,4 +16,5 @@ export default {
       },
     ],
   },
+  plugins: [new ChangeBundleName("bundle.js")],
 };
