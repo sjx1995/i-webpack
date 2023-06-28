@@ -28,14 +28,17 @@
 
 var _foo = require("./foo.js");
 var _bar = require("./bar.js");
+var _test = _interopRequireDefault(require("./test.json"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 var main = function main() {
   (0, _foo.foo)();
   (0, _bar.bar)();
   console.log("main");
+  console.log("使用loader解析的json", _test["default"]);
 };
 main();
       },
-      {"./foo.js":1,"./bar.js":2}
+      {"./foo.js":1,"./bar.js":2,"./test.json":3}
       
     ],
   
@@ -71,11 +74,26 @@ var bar = function bar() {
 };
 exports.bar = bar;
       },
-      {"./sub-dir/baz.js":3}
+      {"./sub-dir/baz.js":4}
       
     ],
   
     3 : [
+      function (require, module, exports) {
+        "use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _default = "{\n  \"name\": \"test\",\n  \"direction\": \"这是一个json文件\",\n  \"file-type\": \"json\"\n}\n";
+exports["default"] = _default;
+      },
+      {}
+      
+    ],
+  
+    4 : [
       function (require, module, exports) {
         "use strict";
 

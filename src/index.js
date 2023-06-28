@@ -15,10 +15,21 @@ const createAsset = (modulePath) => {
   const deps = [];
 
   // 读取文件内容
-  const content = fs.readFileSync(modulePath, "utf-8");
+  let source = fs.readFileSync(modulePath, "utf-8");
+
+  // loader的作用是将非js模块转换成js模块
+  // 所以loader的执行时机应该是在读取文件内容之后，转换成ast之前
+  const loaders = config.module && config.module.rules;
+  if (loaders) {
+    loaders.forEach(({ test, use }) => {
+      if (test.test(modulePath)) {
+        source = use(source);
+      }
+    });
+  }
 
   // 转换ast
-  const ast = babelParser.parse(content, { sourceType: "module" });
+  const ast = babelParser.parse(source, { sourceType: "module" });
 
   // 将ESModule的依赖语句转换成类似CommonJs的语法
   // 因为ESModule的引入语句必须出现在模块的顶层
